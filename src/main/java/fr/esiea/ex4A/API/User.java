@@ -13,7 +13,7 @@ public class User {
 
     public User(@JsonProperty("userEmail") String email,
                 @JsonProperty("userName") String name,
-                @JsonProperty("userTwitter") String twitter,
+                @JsonProperty("userTweeter") String twitter,
                 @JsonProperty("userCountry") String pays,
                 @JsonProperty("userSex") String sexe,
                 @JsonProperty("userSexPref") String sexPref) {
