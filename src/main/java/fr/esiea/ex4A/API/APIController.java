@@ -5,28 +5,26 @@ import retrofit2.Response;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @RestController
 public class APIController {
 
-    public HashMap<String,AgifyForm> agifyMap = new HashMap<>();
+    public final HashMap<String,AgifyForm> agifyMap = new HashMap<>();
     public final AgifyClient agifyClient;
     public final HashMap<String,User> userMap = new HashMap<>();
+    public final UserMatch userMatch;
 
-    public APIController(AgifyClient agifyClient) {
+    public APIController(AgifyClient agifyClient, UserMatch userMatch) {
         this.agifyClient = agifyClient;
+        this.userMatch = userMatch;
     }
 
 
     @GetMapping("/api/matches")
-    public List<User> userListMatches() {
-        final List<User> userList = new ArrayList<>();
-        for(User user: userMap.values()){
-            userList.add(user);
-        }
+    public List<User> userListMatches(@RequestParam(value="userName") String name) {
+        final List<User> userList = userMatch.getMatches(userMap, agifyMap,name);
         return userList;
     }
 
