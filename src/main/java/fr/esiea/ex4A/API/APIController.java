@@ -30,12 +30,13 @@ public class APIController {
 
     @PostMapping("/api/inscription")
     public void inscription(@RequestBody User user) throws IOException {
-        Response<AgifyForm> response = agifyClient.defineAge(user.name, user.pays).execute();
-        AgifyForm agifyForm = response.body();
-
-        agifyMap.put(agifyForm.name,agifyForm);
-        System.out.println(agifyMap);
-        userMap.put(user.name,user);
+        if (!agifyMap.containsKey(user.name)) {
+            Response<AgifyForm> response = agifyClient.defineAge(user.name, user.pays).execute();
+            AgifyForm agifyForm = response.body();
+            agifyMap.put(agifyForm.name, agifyForm);
+            userMap.put(user.name, user);
+            System.out.println(agifyMap);
+        }
     }
 
 }
